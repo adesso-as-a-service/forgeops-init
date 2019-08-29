@@ -37,7 +37,7 @@ logger.info("Successfully joined user {} to organisation: {}", user, organisatio
     <serviceTask id="mailtaskOrgaJoin" name="Mail Task" activiti:type="mail">
       <extensionElements>
         <activiti:field name="to">
-          <activiti:string><![CDATA[test@test.de]]></activiti:string>
+          <activiti:expression><![CDATA[${user.mail}]]></activiti:expression>
         </activiti:field>
         <activiti:field name="from">
           <activiti:string><![CDATA[admin@idm.dihk.de]]></activiti:string>
@@ -50,9 +50,11 @@ logger.info("Successfully joined user {} to organisation: {}", user, organisatio
         </activiti:field>
         <activiti:field name="html">
           <activiti:expression><![CDATA[<html>
-	<body>Ihre Beitrittsanfrage an ${organisation.corporateName} wurde mit folgendem Grund abgelehnt<br/><br/>
-	${userDenyReason}	
+	<body>Ihre Beitrittsanfrage an ${organisation.corporateName} wurde mit folgendem Grund abgelehnt
 	<br/>
+	<br/>
+	${userDenyReason}
+	<br/>	
 	<br/>
 	Bitte wenden Sie sich an den Organisationadministrator.
 	</body>
