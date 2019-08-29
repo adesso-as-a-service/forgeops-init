@@ -1,0 +1,4 @@
+{
+  "username" : "admin",
+  "password" : "&{openidm.webconsole.password}"
+}
