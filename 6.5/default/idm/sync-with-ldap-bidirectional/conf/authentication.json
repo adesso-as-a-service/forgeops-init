@@ -154,6 +154,19 @@
                     "queryOnResource" : "system/userstore/account"
                 },
                 "enabled" : true
+            },
+            {
+                "enabled" : true,
+                "properties" : {
+                    "queryOnResource" : "internal/user",
+                    "username" : "&{openidm.spb.username}",
+                    "password" : "&{openidm.spb.password}",
+                    "defaultUserRoles" : [
+                        "internal/role/openidm-admin",
+                        "internal/role/openidm-authorized"
+                    ]
+                },
+                "name" : "STATIC_USER"
             }
         ]
     }

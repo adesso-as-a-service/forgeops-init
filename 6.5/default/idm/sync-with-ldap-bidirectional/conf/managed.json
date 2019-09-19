@@ -265,7 +265,7 @@
                             {
                                 "policyId" : "regexpMatches",
                                 "params" : {
-                                    "regexp" : "^[1-9]\\d{9}$"
+                                    "regexp" : "^\\d{4,13}$"
                                 }
                             },
                             {
@@ -635,7 +635,10 @@
                         "title" : "Description",
                         "viewable" : true,
                         "searchable" : true,
-                        "type" : "string"
+                        "type" : "string",
+                        "minLength" : null,
+                        "userEditable" : false,
+                        "isVirtual" : false
                     },
                     "members" : {
                         "description" : "Role Members",
@@ -842,7 +845,8 @@
                     "applicationRole"
                 ],
                 "required" : [
-                    "name"
+                    "name",
+                    "description"
                 ]
             },
             "iconClass" : "fa fa-database",
@@ -925,7 +929,7 @@
                         "minLength" : null,
                         "userEditable" : true,
                         "encryption" : {
-                            "purpose": "idm.password.encryption"
+                            "purpose" : "idm.password.encryption"
                         },
                         "scope" : "private",
                         "isProtected" : true,
@@ -1708,8 +1712,7 @@
                     "lastChanged"
                 ]
             },
-            "notifications" : {
-            },
+            "notifications" : { },
             "iconClass" : "fa fa-database",
             "type" : "Managed Object"
         },
@@ -1782,6 +1785,73 @@
                     "body_de",
                     "subject_en",
                     "body_en"
+                ]
+            }
+        },
+        {
+            "name" : "IhkConfiguration",
+            "schema" : {
+                "$schema" : "http://forgerock.org/json-schema#",
+                "type" : "object",
+                "title" : "IHK Konfiguration",
+                "description" : "Einstellungen für die jeweiligen IHKs",
+                "icon" : "fa-cog",
+                "properties" : {
+                    "_id" : {
+                        "title" : "_id",
+                        "type" : "string",
+                        "viewable" : true,
+                        "searchable" : true,
+                        "userEditable" : true
+                    },
+                    "ihkNumber" : {
+                        "title" : "IHK Nummer",
+                        "type" : "number",
+                        "viewable" : true,
+                        "searchable" : true,
+                        "userEditable" : true
+                    },
+                    "ihkName" : {
+                        "title" : "IHK Name",
+                        "type" : "string",
+                        "viewable" : true,
+                        "searchable" : true,
+                        "userEditable" : true
+                    },
+                    "uvzUserName" : {
+                        "title" : "UVZ Benutzername",
+                        "type" : "string",
+                        "viewable" : true,
+                        "searchable" : true,
+                        "userEditable" : true
+                    },
+                    "uvzPassword" : {
+                        "title" : "UVZ Passwort",
+                        "type" : "string",
+                        "viewable" : true,
+                        "searchable" : true,
+                        "userEditable" : true
+                    },
+                    "manuelleFreigabe" : {
+                        "title" : "Manuelle Freigabe",
+                        "type" : "boolean",
+                        "viewable" : true,
+                        "searchable" : false,
+                        "userEditable" : true
+                    }
+                },
+                "order" : [
+                    "_id",
+                    "ihkNumber",
+                    "ihkName",
+                    "uvzUserName",
+                    "uvzPassword",
+                    "manuelleFreigabe"
+                ],
+                "required" : [
+                    "ihkNumber",
+                    "uvzUserName",
+                    "uvzPassword"
                 ]
             }
         }
