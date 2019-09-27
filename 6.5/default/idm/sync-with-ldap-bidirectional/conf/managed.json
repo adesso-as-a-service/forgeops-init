@@ -462,6 +462,24 @@
                         "userEditable" : true,
                         "description" : null,
                         "isVirtual" : false
+                    },
+                    "createDate" : {
+                        "title" : "Erstellungsdatum",
+                        "type" : "string",
+                        "viewable" : true,
+                        "searchable" : true,
+                        "userEditable" : true,
+                        "description" : null,
+                        "minLength" : null,
+                        "isVirtual" : false,
+                        "policies" : [
+                            {
+                                "policyId" : "not-empty",
+                                "params" : {
+                                    "notEmpty" : "notEmpty"
+                                }
+                            }
+                        ]
                     }
                 },
                 "order" : [
@@ -482,7 +500,8 @@
                     "typeOfRegister",
                     "password",
                     "status",
-                    "activationAttempts"
+                    "activationAttempts",
+                    "createDate"
                 ],
                 "required" : [
                     "ihk",
@@ -497,7 +516,8 @@
                     "company",
                     "password",
                     "status",
-                    "activationAttempts"
+                    "activationAttempts",
+                    "createDate"
                 ]
             },
             "iconClass" : "fa fa-database",
@@ -1852,6 +1872,40 @@
                     "ihkNumber",
                     "uvzUserName",
                     "uvzPassword"
+                ]
+            }
+        },
+        {
+            "name" : "Configuration",
+            "schema" : {
+                "$schema" : "http://forgerock.org/json-schema#",
+                "type" : "object",
+                "title" : "Konfiguration",
+                "description" : null,
+                "icon" : "fa-gears",
+                "properties" : {
+                    "_id" : {
+                        "title" : "_id",
+                        "type" : "string",
+                        "viewable" : true,
+                        "searchable" : true,
+                        "userEditable" : true
+                    },
+                    "uvzCallAfterDataChangeTimer" : {
+                        "title" : "Timer für die UVZ Abfrage nach einer Stammdatenänderung",
+                        "type" : "string",
+                        "viewable" : true,
+                        "searchable" : true,
+                        "userEditable" : true
+                    }
+                },
+                "order" : [
+                    "_id",
+                    "uvzCallAfterDataChangeTimer"
+                ],
+                "required" : [
+                    "_id",
+                    "uvzCallAfterDataChangeTimer"
                 ]
             }
         }
