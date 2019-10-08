@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<definitions xmlns="http://www.omg.org/spec/BPMN/20100524/MODEL" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:activiti="http://activiti.org/bpmn" xmlns:bpmndi="http://www.omg.org/spec/BPMN/20100524/DI" xmlns:omgdc="http://www.omg.org/spec/DD/20100524/DC" xmlns:omgdi="http://www.omg.org/spec/DD/20100524/DI" typeLanguage="http://www.w3.org/2001/XMLSchema" expressionLanguage="http://www.w3.org/1999/XPath" targetNamespace="http://www.activiti.org/test">
+  <process id="de.dihk.sso.email.EmailSendingWorkflow" name="Send email" isExecutable="true">
+    <startEvent id="startevent" name="Start"></startEvent>
+    <scriptTask id="loadTemplate" name="Load email template" scriptFormat="groovy" activiti:autoStoreVariables="false">
+      <script>import org.slf4j.Logger
+import org.slf4j.LoggerFactory
+
+final Logger logger = LoggerFactory.getLogger("email.send.load.template")
+
+logger.info "Start loading email template: "
+logger.info "Finished loading email template: "</script>
+    </scriptTask>
+    <sequenceFlow id="flow1" sourceRef="startevent" targetRef="loadTemplate"></sequenceFlow>
+    <serviceTask id="applyTemplate" name="Apply email template" activiti:class="de.dihk.sso.wfl.impl.email.ApplyEmailTemplateService"></serviceTask>
+    <sequenceFlow id="flow2" sourceRef="loadTemplate" targetRef="applyTemplate"></sequenceFlow>
+    <scriptTask id="sendEmail" name="Send email" scriptFormat="groovy" activiti:autoStoreVariables="false">
+      <script>import org.slf4j.Logger
+import org.slf4j.LoggerFactory
+
+final Logger logger = LoggerFactory.getLogger("email.send.send")
+
+logger.info "Start sending email to all users"
+logger.info "Finished sending email to all users"</script>
+    </scriptTask>
+    <sequenceFlow id="flow3" sourceRef="applyTemplate" targetRef="sendEmail"></sequenceFlow>
+    <endEvent id="endevent" name="End"></endEvent>
+    <sequenceFlow id="flow4" sourceRef="sendEmail" targetRef="endevent"></sequenceFlow>
+  </process>
+  <bpmndi:BPMNDiagram id="BPMNDiagram_de.dihk.sso.email.EmailSendingWorkflow">
+    <bpmndi:BPMNPlane bpmnElement="de.dihk.sso.email.EmailSendingWorkflow" id="BPMNPlane_de.dihk.sso.email.EmailSendingWorkflow">
+      <bpmndi:BPMNShape bpmnElement="startevent" id="BPMNShape_startevent">
+        <omgdc:Bounds height="35.0" width="35.0" x="170.0" y="120.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="loadTemplate" id="BPMNShape_loadTemplate">
+        <omgdc:Bounds height="55.0" width="105.0" x="240.0" y="110.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="applyTemplate" id="BPMNShape_applyTemplate">
+        <omgdc:Bounds height="55.0" width="105.0" x="380.0" y="110.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="sendEmail" id="BPMNShape_sendEmail">
+        <omgdc:Bounds height="55.0" width="105.0" x="520.0" y="110.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape bpmnElement="endevent" id="BPMNShape_endevent">
+        <omgdc:Bounds height="35.0" width="35.0" x="660.0" y="120.0"></omgdc:Bounds>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNEdge bpmnElement="flow1" id="BPMNEdge_flow1">
+        <omgdi:waypoint x="205.0" y="137.0"></omgdi:waypoint>
+        <omgdi:waypoint x="240.0" y="137.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="flow2" id="BPMNEdge_flow2">
+        <omgdi:waypoint x="345.0" y="137.0"></omgdi:waypoint>
+        <omgdi:waypoint x="380.0" y="137.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="flow3" id="BPMNEdge_flow3">
+        <omgdi:waypoint x="485.0" y="137.0"></omgdi:waypoint>
+        <omgdi:waypoint x="520.0" y="137.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge bpmnElement="flow4" id="BPMNEdge_flow4">
+        <omgdi:waypoint x="625.0" y="137.0"></omgdi:waypoint>
+        <omgdi:waypoint x="660.0" y="137.0"></omgdi:waypoint>
+      </bpmndi:BPMNEdge>
+    </bpmndi:BPMNPlane>
+  </bpmndi:BPMNDiagram>
+</definitions>
