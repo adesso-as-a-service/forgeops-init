@@ -177,7 +177,7 @@
                     },
                     "version" : {
                         "title" : null,
-                        "type" : "number",
+                        "type" : "string",
                         "viewable" : true,
                         "searchable" : true,
                         "userEditable" : true,
@@ -224,7 +224,12 @@
                 ]
             },
             "iconClass" : "fa fa-database",
-            "type" : "Managed Object"
+            "type" : "Managed Object",
+            "postCreate" : {
+                "type" : "groovy",
+                "globals" : { },
+                "source" : "import org.slf4j.Logger;\nimport org.slf4j.LoggerFactory;\n\nfinal Logger logger = LoggerFactory.getLogger(\"conditionOfUse.create.logger\");\n\nlogger.info(\"New conidtion of use. Start sending mail to all users\")\n\ndef emailParams(to) {\n    return [\n        from : 'admin@example.com',\n        subject : 'A Subect',\n        type : 'text/plain',\n        body : 'A Body',\n        to: to\n]}\n\n\n\ndef fields = [\"mail\"]\ndef params = [ _queryId: \"query-all\" ]\ndef users = openidm.query(\"managed/user\", params, fields).result\n\n\nusers[\"mail\"]\n        .collect { emailParams it}\n        .collect { openidm.action(\"external/email\", \"send\",  it) }\n\n\nlogger.info(\"Finished sending mail to all users\")"
+            }
         },
         {
             "name" : "organisation",
@@ -462,6 +467,24 @@
                         "userEditable" : true,
                         "description" : null,
                         "isVirtual" : false
+                    },
+                    "createDate" : {
+                        "title" : "Erstellungsdatum",
+                        "type" : "string",
+                        "viewable" : true,
+                        "searchable" : true,
+                        "userEditable" : true,
+                        "description" : null,
+                        "minLength" : null,
+                        "isVirtual" : false,
+                        "policies" : [
+                            {
+                                "policyId" : "not-empty",
+                                "params" : {
+                                    "notEmpty" : "notEmpty"
+                                }
+                            }
+                        ]
                     }
                 },
                 "order" : [
@@ -482,7 +505,8 @@
                     "typeOfRegister",
                     "password",
                     "status",
-                    "activationAttempts"
+                    "activationAttempts",
+                    "createDate"
                 ],
                 "required" : [
                     "ihk",
@@ -497,7 +521,8 @@
                     "company",
                     "password",
                     "status",
-                    "activationAttempts"
+                    "activationAttempts",
+                    "createDate"
                 ]
             },
             "iconClass" : "fa fa-database",
@@ -534,7 +559,7 @@
                     },
                     "version" : {
                         "title" : null,
-                        "type" : "number",
+                        "type" : "string",
                         "viewable" : true,
                         "searchable" : true,
                         "userEditable" : true,
@@ -1646,20 +1671,6 @@
                             }
                         ],
                         "description" : null
-                    },
-                    "conditionsOfUseDate" : {
-                        "title" : "conditionsOfUseDate",
-                        "type" : "string",
-                        "viewable" : true,
-                        "searchable" : true,
-                        "userEditable" : true
-                    },
-                    "privacyPolicyDate" : {
-                        "title" : "privacyPolicyDate",
-                        "type" : "string",
-                        "viewable" : true,
-                        "searchable" : true,
-                        "userEditable" : true
                     }
                 },
                 "order" : [
@@ -1692,9 +1703,7 @@
                     "salutation",
                     "academicDegree",
                     "conditionsOfUse",
-                    "privacyPolicy",
-                    "conditionsOfUseDate",
-                    "privacyPolicyDate"
+                    "privacyPolicy"
                 ],
                 "required" : [
                     "userName",
@@ -1852,6 +1861,40 @@
                     "ihkNumber",
                     "uvzUserName",
                     "uvzPassword"
+                ]
+            }
+        },
+        {
+            "name" : "Configuration",
+            "schema" : {
+                "$schema" : "http://forgerock.org/json-schema#",
+                "type" : "object",
+                "title" : "Konfiguration",
+                "description" : null,
+                "icon" : "fa-gears",
+                "properties" : {
+                    "_id" : {
+                        "title" : "_id",
+                        "type" : "string",
+                        "viewable" : true,
+                        "searchable" : true,
+                        "userEditable" : true
+                    },
+                    "uvzCallAfterDataChangeTimer" : {
+                        "title" : "Timer für die UVZ Abfrage nach einer Stammdatenänderung",
+                        "type" : "string",
+                        "viewable" : true,
+                        "searchable" : true,
+                        "userEditable" : true
+                    }
+                },
+                "order" : [
+                    "_id",
+                    "uvzCallAfterDataChangeTimer"
+                ],
+                "required" : [
+                    "_id",
+                    "uvzCallAfterDataChangeTimer"
                 ]
             }
         }
