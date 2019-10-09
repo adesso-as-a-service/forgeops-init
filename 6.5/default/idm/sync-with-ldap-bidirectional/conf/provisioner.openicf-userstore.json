@@ -5,8 +5,8 @@
         "connectorName" : "org.identityconnectors.ldap.LdapConnector"
     },
     "configurationProperties" : {
-        "host" : "userstore",
-        "port" : "1389",
+        "host" : "&{userstore.service.host}",
+        "port" : "&{userstore.service.port}",
         "ssl" : false,
         "principal" : "&{userstore.username}",
         "credentials" : "&{userstore.password}",

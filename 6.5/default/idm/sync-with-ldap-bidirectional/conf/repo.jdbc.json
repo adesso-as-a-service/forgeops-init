@@ -86,12 +86,6 @@
                     },
                     "/academicDegree" : {
                         "searchable" : true
-                    },
-                    "/conditionsOfUseDate" : {
-                        "searchable" : true
-                    },
-                    "/privacyPolicyDate" : {
-                        "searchable" : true
                     }
                 }
             },

@@ -19,6 +19,10 @@
                 {
                     "target" : "cn",
                     "source" : "name"
+                },
+                {
+                    "target" : "description",
+                    "source" : "description"
                 }
             ],
             "policies" : [
@@ -263,6 +267,15 @@
                 {
                     "target" : "_id",
                     "source" : "cn",
+                    "transform" : {
+                        "type" : "groovy",
+                        "globals" : { },
+                        "source" : "source.get(0)"
+                    }
+                },
+                {
+                    "target" : "description",
+                    "source" : "description",
                     "transform" : {
                         "type" : "groovy",
                         "globals" : { },
