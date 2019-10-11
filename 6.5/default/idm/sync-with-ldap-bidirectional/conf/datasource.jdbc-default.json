@@ -3,7 +3,7 @@
     "jdbcUrl" : "jdbc:postgresql://&{openidm.repo.host}:&{openidm.repo.port}/&{openidm.repo.schema}",
     "databaseName" : "&{openidm.repo.databaseName}",
     "username" : "&{openidm.repo.user}",
-    "password" : "&{openidm.repo.databasepassword}",
+    "password" : "&{openidm.repo.password}",
     "connectionTimeout" : 30000,
     "connectionPool" : {
         "type" : "hikari",
