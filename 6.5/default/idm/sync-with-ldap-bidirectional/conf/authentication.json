@@ -4,7 +4,7 @@
             "name" : "JWT_SESSION",
             "properties" : {
                 "sessionOnly" : true,
-                "isHttpOnly" : true,
+                "isHttpOnly" : false,
                 "enableDynamicRoles" : false,
                 "maxTokenLifeSeconds" : "5",
                 "tokenIdleTimeSeconds" : "5"
